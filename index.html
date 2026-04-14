@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Velvet Grounds | Specialty Coffee & Kitchen</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════
+   ROOT & RESET
+══════════════════════════════ */
+:root {
+  --black:    #080808;
+  --charcoal: #111111;
+  --card:     #181818;
+  --border:   rgba(255,255,255,0.07);
+  --amber:    #C8922A;
+  --gold:     #E8BC5A;
+  --gold-dim: rgba(232,188,90,0.15);
+  --cream:    #F0E6D0;
+  --muted:    rgba(240,230,208,0.45);
+  --white:    #ffffff;
+  --red:      #e05050;
+  --glass:    rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.09);
+  --shadow-gold: 0 0 40px rgba(200,146,42,0.15);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --r: 14px;
+  --r-lg: 22px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--black);
+  color: var(--cream);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:0; opacity:0.6;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--black); }
+::-webkit-scrollbar-thumb { background:var(--amber); border-radius:2px; }
+
+/* ══════════════════════════════
+   HEADER
+══════════════════════════════ */
+.header {
+  position:sticky; top:0; z-index:200;
+  padding:0 24px;
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s;
+}
+.header-inner {
+  max-width:900px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 0;
+}
+.logo-wrap { display:flex; flex-direction:column; }
+.logo-main {
+  font-family: var(--font-display);
+  font-size:26px; font-weight:700; letter-spacing:3px;
+  color:var(--gold); text-transform:uppercase; line-height:1;
+  text-shadow: 0 0 30px rgba(232,188,90,0.3);
+}
+.logo-sub {
+  font-size:9px; font-weight:500; letter-spacing:4px;
+  color:var(--muted); text-transform:uppercase; margin-top:3px;
+}
+.header-right { display:flex; align-items:center; gap:16px; }
+.cart-pill {
+  background:var(--gold-dim); border:1px solid rgba(232,188,90,0.3);
+  color:var(--gold); border-radius:30px; padding:8px 18px;
+  font-size:13px; font-weight:600; cursor:pointer; display:flex;
+  align-items:center; gap:8px; transition:all 0.2s; font-family:var(--font-body);
+}
+.cart-pill:active { transform:scale(0.96); }
+.cart-count {
+  background:var(--amber); color:var(--black); border-radius:50%;
+  width:18px; height:18px; font-size:10px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+}
+.admin-dot {
+  width:7px; height:7px; background:rgba(255,255,255,0.7);
+  border-radius:50%; cursor:pointer; transition:all 0.3s;
+}
+.admin-dot:hover { background:var(--gold); }
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero {
+  position:relative; min-height:88vh;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  overflow:hidden; padding:60px 24px 40px;
+  text-align:center;
+}
+/* Radial glow background */
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 60%, rgba(200,146,42,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 80% at 20% 20%, rgba(200,146,42,0.05) 0%, transparent 60%);
+  pointer-events:none;
+}
+/* Horizontal light lines */
+.hero::after {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px);
+  pointer-events:none;
+}
+
+.hero-eyebrow {
+  font-size:10px; letter-spacing:5px; text-transform:uppercase;
+  color:var(--amber); font-weight:500; margin-bottom:24px;
+  display:flex; align-items:center; gap:14px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content:''; display:block; height:1px; width:40px;
+  background:linear-gradient(90deg, transparent, var(--amber));
+}
+.hero-eyebrow::after { background:linear-gradient(90deg, var(--amber), transparent); }
+
+.hero-title {
+  font-family:var(--font-display);
+  font-size:clamp(54px,12vw,96px);
+  font-weight:300; line-height:0.92;
+  color:var(--cream); letter-spacing:-1px;
+  margin-bottom:8px;
+}
+.hero-title em {
+  font-style:italic; color:var(--gold);
+  text-shadow:0 0 60px rgba(232,188,90,0.4);
+}
+.hero-title .line2 { display:block; margin-top:4px; }
+
+.hero-desc {
+  font-size:14px; color:var(--muted); line-height:1.9;
+  max-width:320px; margin:28px auto 0; font-weight:300;
+}
+
+/* 3D floating orbs */
+.orb {
+  position:absolute; border-radius:50%;
+  filter:blur(60px); pointer-events:none; opacity:0.5;
+  animation:orbFloat 8s ease-in-out infinite;
+}
+.orb-1 { width:300px; height:300px; background:rgba(200,146,42,0.15); top:-80px; right:-60px; animation-delay:0s; }
+.orb-2 { width:200px; height:200px; background:rgba(200,100,42,0.1); bottom:20px; left:-40px; animation-delay:3s; }
+.orb-3 { width:150px; height:150px; background:rgba(232,188,90,0.08); top:40%; right:5%; animation-delay:5s; }
+@keyframes orbFloat {
+  0%,100%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-30px) scale(1.05);}
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--muted);
+}
+.scroll-line {
+  width:1px; height:40px;
+  background:linear-gradient(to bottom, var(--amber), transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100%{opacity:0.4;transform:scaleY(1);}
+  50%{opacity:1;transform:scaleY(1.2);}
+}
+
+/* ══════════════════════════════
+   STATS BAR
+══════════════════════════════ */
+.stats-bar {
+  background:var(--charcoal);
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  padding:20px 24px;
+}
+.stats-inner {
+  max-width:900px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(3,1fr);
+  divide-x: var(--border);
+}
+.stat { text-align:center; padding:0 16px; }
+.stat + .stat { border-left:1px solid var(--border); }
+.stat-num {
+  font-family:var(--font-display); font-size:30px; font-weight:600;
+  color:var(--gold); line-height:1;
+}
+.stat-label { font-size:10px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-top:4px; }
+
+/* ══════════════════════════════
+   CATEGORY NAV
+══════════════════════════════ */
+.cat-nav {
+  padding:20px 24px 0; position:sticky; top:65px; z-index:150;
+  background:rgba(8,8,8,0.9); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.cat-nav-inner {
+  max-width:900px; margin:0 auto;
+  display:flex; gap:6px; overflow-x:auto; padding-bottom:16px;
+  scrollbar-width:none;
+}
+.cat-nav-inner::-webkit-scrollbar{display:none;}
+.cat-pill {
+  background:transparent; border:1px solid var(--border);
+  color:var(--muted); border-radius:30px; padding:8px 18px;
+  font-family:var(--font-body); font-size:12px; font-weight:500;
+  white-space:nowrap; cursor:pointer; transition:all 0.25s;
+  letter-spacing:0.5px; flex-shrink:0;
+}
+.cat-pill.active, .cat-pill:hover {
+  background:var(--gold-dim); border-color:rgba(232,188,90,0.4);
+  color:var(--gold);
+}
+
+/* ══════════════════════════════
+   MENU SECTION
+══════════════════════════════ */
+.menu-section { padding:0 24px 120px; }
+.menu-inner { max-width:900px; margin:0 auto; }
+
+.category-block { margin-top:48px; }
+.cat-heading {
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:24px; padding-bottom:16px;
+  border-bottom:1px solid var(--border);
+}
+.cat-emoji { font-size:24px; }
+.cat-name {
+  font-family:var(--font-display); font-size:28px; font-weight:600;
+  color:var(--cream); letter-spacing:1px;
+}
+.cat-count {
+  font-size:11px; color:var(--muted); letter-spacing:1px;
+  margin-left:auto; background:var(--glass); border:1px solid var(--border);
+  border-radius:20px; padding:3px 10px;
+}
+
+/* GRID MENU */
+.menu-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.menu-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  cursor:pointer;
+  transition:all 0.4s cubic-bezier(0.23,1,0.32,1);
+  transform-style:preserve-3d;
+  position:relative;
+}
+.menu-card:hover {
+  border-color:rgba(232,188,90,0.25);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5), var(--shadow-gold);
+  transform:translateY(-4px) rotateX(2deg);
+}
+.menu-card:active { transform:scale(0.97); }
+
+/* Gold shimmer on hover */
+.menu-card::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(232,188,90,0.06) 0%, transparent 60%);
+  opacity:0; transition:opacity 0.4s; z-index:1; pointer-events:none;
+  border-radius:inherit;
+}
+.menu-card:hover::before { opacity:1; }
+
+.card-img-wrap {
+  position:relative; width:100%; height:140px; overflow:hidden;
+  background:linear-gradient(135deg,#1e1a14,#141010);
+}
+.card-img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform 0.6s cubic-bezier(0.23,1,0.32,1);
+  filter:brightness(0.85) saturate(0.9);
+}
+.menu-card:hover .card-img {
+  transform:scale(1.08);
+  filter:brightness(0.95) saturate(1.1);
+}
+.card-img-gradient {
+  position:absolute; bottom:0; left:0; right:0; height:60px;
+  background:linear-gradient(to top, var(--card), transparent);
+  pointer-events:none;
+}
+
+.card-body { padding:14px 14px 16px; position:relative; z-index:2; }
+.card-name {
+  font-family:var(--font-display); font-size:16px; font-weight:600;
+  color:var(--cream); letter-spacing:0.3px; margin-bottom:5px; line-height:1.2;
+}
+.card-desc {
+  font-size:11px; color:var(--muted); line-height:1.6;
+  margin-bottom:12px; font-weight:300;
+}
+.card-footer { display:flex; align-items:center; justify-content:space-between; }
+.card-price {
+  font-family:var(--font-display); font-size:18px; font-weight:600;
+  color:var(--gold); letter-spacing:0.5px;
+}
+.card-add-btn {
+  width:30px; height:30px; background:var(--gold-dim);
+  border:1px solid rgba(232,188,90,0.35); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all 0.25s; color:var(--gold);
+  font-size:18px; font-weight:300; line-height:1;
+  font-family:var(--font-body);
+}
+.card-add-btn:hover { background:var(--amber); color:var(--black); border-color:var(--amber); }
+.card-add-btn.added {
+  background:var(--amber); color:var(--black); border-color:var(--amber);
+  font-size:12px; font-weight:700;
+}
+.card-badge {
+  position:absolute; top:12px; left:12px; z-index:5;
+  background:var(--amber); color:var(--black);
+  font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  padding:3px 8px; border-radius:4px;
+}
+
+/* ══════════════════════════════
+   CART DRAWER
+══════════════════════════════ */
+.cart-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(4px); z-index:400;
+  opacity:0; pointer-events:none; transition:opacity 0.3s;
+}
+.cart-overlay.open { opacity:1; pointer-events:all; }
+.cart-drawer {
+  position:fixed; bottom:0; left:0; right:0;
+  background:var(--charcoal); border-radius:24px 24px 0 0;
+  z-index:401; max-height:80vh; display:flex; flex-direction:column;
+  transform:translateY(100%); transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);
+  border-top:1px solid var(--border);
+}
+.cart-drawer.open { transform:translateY(0); }
+.cart-handle { width:36px; height:3px; background:rgba(255,255,255,0.15); border-radius:2px; margin:14px auto 0; flex-shrink:0; }
+.cart-head {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 22px 12px; border-bottom:1px solid var(--border); flex-shrink:0;
+}
+.cart-title { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--cream); }
+.cart-close {
+  width:30px; height:30px; background:var(--glass); border:1px solid var(--border);
+  border-radius:50%; font-size:16px; cursor:pointer; display:flex;
+  align-items:center; justify-content:center; color:var(--muted);
+}
+.cart-list { overflow-y:auto; flex:1; padding:0 22px; }
+.cart-row {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 0; border-bottom:1px solid var(--border);
+}
+.cart-row:last-child { border-bottom:none; }
+.cart-row-name { flex:1; font-size:14px; font-weight:500; color:var(--cream); }
+.cart-row-qty { font-size:12px; color:var(--muted); }
+.cart-row-price { font-family:var(--font-display); font-size:16px; color:var(--gold); font-weight:600; }
+.cart-row-remove {
+  color:var(--muted); cursor:pointer; font-size:16px;
+  padding:4px 6px; transition:color 0.2s;
+}
+.cart-row-remove:hover { color:var(--red); }
+.cart-foot {
+  padding:16px 22px 32px; border-top:1px solid var(--border); flex-shrink:0;
+}
+.cart-total-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.cart-total-label { font-size:13px; color:var(--muted); }
+.cart-total-amt { font-family:var(--font-display); font-size:24px; color:var(--cream); font-weight:600; }
+.order-btn {
+  width:100%; background:linear-gradient(135deg,var(--amber),var(--gold));
+  color:var(--black); border:none; border-radius:var(--r);
+  padding:16px; font-family:var(--font-body); font-size:15px; font-weight:700;
+  cursor:pointer; transition:all 0.2s; letter-spacing:0.5px;
+  box-shadow:0 8px 30px rgba(200,146,42,0.35);
+}
+.order-btn:active { transform:scale(0.98); }
+
+/* ══════════════════════════════
+   CONFIRM SCREEN
+══════════════════════════════ */
+.confirm-screen {
+  position:fixed; inset:0; background:var(--black); z-index:600;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:30px 28px; opacity:0; pointer-events:none;
+  transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1); transform:scale(0.94);
+}
+.confirm-screen.open { opacity:1; pointer-events:all; transform:scale(1); }
+.confirm-glow {
+  width:90px; height:90px; border-radius:50%;
+  background:radial-gradient(circle, rgba(232,188,90,0.3) 0%, transparent 70%);
+  display:flex; align-items:center; justify-content:center;
+  font-size:44px; margin-bottom:22px;
+  animation:confirmPop 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;
+}
+@keyframes confirmPop { from{transform:scale(0);} to{transform:scale(1);} }
+.confirm-id {
+  font-family:var(--font-display); font-size:36px; font-weight:700;
+  color:var(--gold); letter-spacing:3px; margin-bottom:6px;
+}
+.confirm-title { font-size:18px; font-weight:500; color:var(--cream); margin-bottom:6px; }
+.confirm-sub { font-size:13px; color:var(--muted); text-align:center; line-height:1.7; }
+.confirm-eta {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--r);
+  padding:16px 28px; margin:22px 0; text-align:center; width:100%;
+}
+.confirm-eta-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+.confirm-eta-val { font-family:var(--font-display); font-size:26px; color:var(--gold); margin-top:4px; font-weight:600; }
+.confirm-items { width:100%; max-height:160px; overflow-y:auto; margin-bottom:20px; }
+.confirm-item-row { display:flex; justify-content:space-between; padding:6px 0; font-size:13px; color:var(--muted); border-bottom:1px solid var(--border); }
+.confirm-item-row:last-child { border-bottom:none; }
+.phone-input-wrap { width:100%; margin-bottom:14px; }
+.phone-label { font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; display:block; }
+.phone-row {
+  display:flex; align-items:center;
+  background:var(--card); border:1px solid var(--border); border-radius:var(--r); overflow:hidden;
+}
+.phone-prefix { padding:12px 14px; font-size:13px; color:var(--muted); border-right:1px solid var(--border); background:var(--glass); }
+.phone-input {
+  flex:1; background:transparent; border:none; outline:none;
+  padding:12px 14px; font-family:var(--font-body); font-size:15px;
+  font-weight:500; color:var(--cream);
+}
+.phone-input::placeholder { color:rgba(240,230,208,0.2); }
+.wa-btn {
+  width:100%; background:#25D366; color:white; border:none;
+  border-radius:var(--r); padding:15px; font-family:var(--font-body);
+  font-size:15px; font-weight:700; cursor:pointer; margin-bottom:10px;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  box-shadow:0 6px 20px rgba(37,211,102,0.25); transition:all 0.2s;
+}
+.wa-btn:active { transform:scale(0.97); }
+.back-btn {
+  width:100%; background:transparent; color:var(--muted);
+  border:1px solid var(--border); border-radius:var(--r); padding:13px;
+  font-family:var(--font-body); font-size:14px; font-weight:500; cursor:pointer;
+}
+
+/* ══════════════════════════════
+   REVIEWS
+══════════════════════════════ */
+.reviews-section { padding:60px 24px; position:relative; overflow:hidden; }
+.reviews-section::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, var(--amber), transparent);
+}
+.reviews-inner { max-width:900px; margin:0 auto; }
+.section-eyebrow {
+  font-size:10px; letter-spacing:5px; text-transform:uppercase; color:var(--amber);
+  text-align:center; margin-bottom:10px;
+}
+.section-title {
+  font-family:var(--font-display); font-size:36px; font-weight:600;
+  color:var(--cream); text-align:center; margin-bottom:36px; letter-spacing:0.5px;
+}
+
+/* Review cards carousel */
+.reviews-track-wrap {
+  overflow:hidden; position:relative;
+}
+.reviews-track {
+  display:flex; gap:16px;
+  transition:transform 0.6s cubic-bezier(0.23,1,0.32,1);
+}
+.review-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--r-lg);
+  padding:24px; min-width:calc(100vw - 80px); max-width:340px;
+  flex-shrink:0; transition:all 0.3s;
+  position:relative; overflow:hidden;
+}
+.review-card::before {
+  content:'\201C'; font-family:var(--font-display);
+  font-size:80px; color:rgba(232,188,90,0.06);
+  position:absolute; top:-10px; left:12px; line-height:1;
+}
+.review-stars { display:flex; gap:3px; margin-bottom:12px; }
+.review-stars span { color:var(--amber); font-size:14px; }
+.review-text { font-size:13px; color:var(--cream); line-height:1.8; margin-bottom:16px; font-weight:300; font-style:italic; }
+.review-author { display:flex; align-items:center; gap:10px; }
+.review-avatar {
+  width:36px; height:36px; border-radius:50%;
+  background:linear-gradient(135deg,var(--amber),var(--gold));
+  display:flex; align-items:center; justify-content:center;
+  font-size:15px; font-weight:700; color:var(--black); flex-shrink:0;
+}
+.review-name { font-size:13px; font-weight:600; color:var(--cream); }
+.review-date { font-size:10px; color:var(--muted); margin-top:1px; }
+.review-badge {
+  position:absolute; top:16px; right:16px;
+  background:rgba(37,211,102,0.1); border:1px solid rgba(37,211,102,0.2);
+  color:#25D366; font-size:9px; font-weight:700; letter-spacing:1px;
+  text-transform:uppercase; padding:3px 8px; border-radius:4px;
+}
+
+/* Live review input */
+.review-new {
+  margin-top:28px; background:var(--card); border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:22px; position:relative;
+}
+.review-new-title { font-size:15px; font-weight:600; color:var(--cream); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+.live-dot { width:7px; height:7px; background:#25D366; border-radius:50%; animation:livePulse 1.5s ease-in-out infinite; }
+@keyframes livePulse {
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.4;transform:scale(0.8);}
+}
+.star-picker { display:flex; gap:6px; margin-bottom:14px; }
+.star-pick { font-size:22px; cursor:pointer; color:rgba(232,188,90,0.25); transition:color 0.15s; }
+.star-pick.active { color:var(--amber); }
+.review-textarea {
+  width:100%; background:var(--glass); border:1px solid var(--border);
+  border-radius:var(--r); padding:12px 14px; font-family:var(--font-body);
+  font-size:13px; color:var(--cream); resize:none; outline:none;
+  height:80px; margin-bottom:12px; transition:border-color 0.2s;
+}
+.review-textarea:focus { border-color:rgba(232,188,90,0.4); }
+.review-textarea::placeholder { color:rgba(240,230,208,0.2); }
+.review-name-inp {
+  width:100%; background:var(--glass); border:1px solid var(--border);
+  border-radius:var(--r); padding:10px 14px; font-family:var(--font-body);
+  font-size:13px; color:var(--cream); outline:none; margin-bottom:12px;
+  transition:border-color 0.2s;
+}
+.review-name-inp:focus { border-color:rgba(232,188,90,0.4); }
+.review-name-inp::placeholder { color:rgba(240,230,208,0.2); }
+.submit-review-btn {
+  width:100%; background:var(--gold-dim); border:1px solid rgba(232,188,90,0.35);
+  color:var(--gold); border-radius:var(--r); padding:12px;
+  font-family:var(--font-body); font-size:14px; font-weight:600; cursor:pointer;
+  transition:all 0.2s; letter-spacing:0.5px;
+}
+.submit-review-btn:hover { background:var(--amber); color:var(--black); border-color:var(--amber); }
+.review-dots { display:flex; gap:6px; justify-content:center; margin-top:20px; }
+.rdot { width:5px; height:5px; border-radius:50%; background:var(--border); cursor:pointer; transition:all 0.25s; }
+.rdot.active { background:var(--amber); width:16px; border-radius:3px; }
+
+/* ══════════════════════════════
+   ATMOSPHERE / ABOUT STRIP
+══════════════════════════════ */
+.about-strip {
+  padding:50px 24px; background:var(--charcoal);
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+}
+.about-inner { max-width:900px; margin:0 auto; text-align:center; }
+.about-quote {
+  font-family:var(--font-display); font-size:28px; font-weight:300;
+  font-style:italic; color:var(--cream); line-height:1.5; max-width:500px; margin:0 auto;
+}
+.about-quote em { color:var(--gold); font-style:normal; }
+.about-author { font-size:11px; letter-spacing:3px; color:var(--muted); margin-top:16px; text-transform:uppercase; }
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+.footer {
+  padding:40px 24px 28px; background:var(--charcoal);
+  border-top:1px solid var(--border);
+}
+.footer-inner { max-width:900px; margin:0 auto; text-align:center; }
+.footer-logo {
+  font-family:var(--font-display); font-size:28px; font-weight:700;
+  color:var(--gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:4px;
+  text-shadow:0 0 30px rgba(232,188,90,0.25);
+}
+.footer-tagline { font-size:10px; letter-spacing:4px; color:var(--muted); text-transform:uppercase; margin-bottom:20px; }
+.footer-info { font-size:13px; color:var(--muted); line-height:2; }
+.footer-info a { color:var(--cream); text-decoration:none; transition:color 0.2s; }
+.footer-info a:hover { color:var(--gold); }
+.footer-ig-btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:46px; height:46px; margin-top:20px;
+  background:var(--glass); border:1px solid var(--border);
+  border-radius:50%; cursor:default; transition:all 0.2s;
+  color:var(--muted);
+}
+.footer-ig-btn:hover { border-color:rgba(232,188,90,0.3); color:var(--gold); }
+.footer-ig-btn svg { width:20px; height:20px; fill:currentColor; }
+.footer-divider { height:1px; background:var(--border); margin:24px 0; }
+.footer-copy { font-size:11px; color:rgba(240,230,208,0.2); }
+
+/* TTS Footer */
+.tts-footer {
+  background:#080808; padding:14px 20px;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  border-top:1px solid #1a1a1a;
+}
+.tts-label { font-size:11px; color:rgba(255,255,255,0.25); font-weight:500; }
+.tts-brand { display:flex; align-items:center; gap:7px; text-decoration:none; transition:opacity 0.2s; }
+.tts-brand:active { opacity:0.7; }
+.tts-icon {
+  width:28px; height:28px; background:#f5a623; border-radius:7px;
+  display:flex; align-items:center; justify-content:center;
+}
+.tts-icon svg { width:15px; height:15px; }
+.tts-name { font-size:13px; font-weight:700; color:white; letter-spacing:0.2px; font-family:var(--font-body); }
+.tts-name span { color:#f5a623; }
+
+/* ══════════════════════════════
+   OVERLAYS & MODALS
+══════════════════════════════ */
+.admin-login-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(8px);
+  z-index:700; display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity 0.3s;
+}
+.admin-login-overlay.open { opacity:1; pointer-events:all; }
+.admin-login-card {
+  background:var(--charcoal); border:1px solid var(--border);
+  border-radius:24px; padding:32px 28px; width:320px; max-width:90vw;
+  box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(200,146,42,0.05);
+}
+.admin-login-logo { font-family:var(--font-display); font-size:22px; color:var(--gold); text-align:center; margin-bottom:4px; letter-spacing:2px; text-transform:uppercase; }
+.admin-login-sub { font-size:11px; letter-spacing:2px; color:var(--muted); text-align:center; margin-bottom:26px; text-transform:uppercase; }
+.form-group { margin-bottom:14px; }
+.form-label { font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; display:block; }
+.form-input {
+  width:100%; background:var(--card); border:1px solid var(--border);
+  border-radius:var(--r); padding:12px 14px; font-family:var(--font-body);
+  font-size:14px; color:var(--cream); outline:none; transition:border-color 0.2s;
+}
+.form-input:focus { border-color:rgba(232,188,90,0.4); }
+.login-btn {
+  width:100%; background:linear-gradient(135deg,var(--amber),var(--gold));
+  color:var(--black); border:none; border-radius:var(--r); padding:13px;
+  font-family:var(--font-body); font-size:14px; font-weight:700; cursor:pointer;
+  margin-top:4px; transition:all 0.2s; letter-spacing:0.5px;
+}
+.login-btn:active { transform:scale(0.97); }
+.login-err { color:var(--red); font-size:12px; text-align:center; margin-top:10px; display:none; }
+.cancel-login {
+  width:100%; background:transparent; border:none; color:var(--muted);
+  font-family:var(--font-body); font-size:13px; cursor:pointer; margin-top:12px; padding:8px;
+}
+
+/* ADMIN PANEL */
+.admin-panel {
+  position:fixed; inset:0; background:var(--black); z-index:800;
+  display:flex; flex-direction:column;
+  transform:translateX(100%); transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);
+}
+.admin-panel.open { transform:translateX(0); }
+.admin-head {
+  background:var(--charcoal); border-bottom:1px solid var(--border);
+  padding:50px 20px 14px; display:flex; align-items:center; justify-content:space-between;
+}
+.admin-head-title { font-family:var(--font-display); font-size:20px; color:var(--gold); font-weight:600; }
+.admin-head-sub { font-size:10px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-top:2px; }
+.logout-btn {
+  background:var(--glass); border:1px solid var(--border); border-radius:8px;
+  padding:8px 14px; color:var(--muted); font-family:var(--font-body);
+  font-size:12px; font-weight:600; cursor:pointer; letter-spacing:0.5px;
+}
+.admin-status-bar {
+  background:rgba(0,0,0,0.3); padding:12px 18px;
+  display:flex; gap:12px; align-items:center; flex-shrink:0;
+  border-bottom:1px solid var(--border);
+}
+.status-toggle-row {
+  display:flex; align-items:center; gap:8px; flex:1;
+  background:var(--glass); border:1px solid var(--border);
+  border-radius:10px; padding:8px 12px;
+}
+.status-toggle-label { font-size:12px; font-weight:600; color:rgba(255,255,255,0.7); flex:1; line-height:1.2; }
+.status-toggle-sub { font-size:10px; color:var(--muted); display:block; font-weight:400; }
+.status-toggle-switch { position:relative; width:40px; height:22px; flex-shrink:0; }
+.status-toggle-switch input { opacity:0; width:0; height:0; }
+.status-toggle-slider { position:absolute; inset:0; background:rgba(255,255,255,0.15); border-radius:11px; cursor:pointer; transition:background 0.3s; }
+.status-toggle-slider::before { content:''; position:absolute; left:2px; top:2px; width:18px; height:18px; background:white; border-radius:50%; transition:transform 0.3s; box-shadow:0 1px 4px rgba(0,0,0,0.3); }
+.status-toggle-switch input:checked + .status-toggle-slider { background:#c0392b; }
+.status-toggle-switch.break-toggle input:checked + .status-toggle-slider { background:var(--amber); }
+.status-toggle-switch input:checked + .status-toggle-slider::before { transform:translateX(18px); }
+.admin-tabs { display:flex; background:var(--charcoal); border-bottom:1px solid var(--border); overflow-x:auto; flex-shrink:0; }
+.admin-tab { padding:12px 18px; font-family:var(--font-body); font-size:12px; font-weight:600; color:var(--muted); border:none; background:transparent; cursor:pointer; white-space:nowrap; border-bottom:2px solid transparent; margin-bottom:-1px; letter-spacing:0.5px; transition:all 0.2s; }
+.admin-tab.active { color:var(--gold); border-bottom-color:var(--amber); }
+.admin-content { flex:1; overflow-y:auto; padding:16px; }
+.order-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; margin-bottom:12px; border-left:3px solid var(--amber); }
+.order-card.working { border-left-color:#3b82f6; }
+.order-card.ready { border-left-color:#25D366; opacity:0.8; }
+.order-card-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+.order-id { font-family:var(--font-display); font-size:20px; font-weight:700; color:var(--gold); }
+.order-time { font-size:11px; color:var(--muted); }
+.order-status { font-size:10px; font-weight:700; padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; }
+.status-new { background:rgba(200,146,42,0.15); color:var(--amber); }
+.status-working { background:rgba(59,130,246,0.15); color:#3b82f6; }
+.status-ready { background:rgba(37,211,102,0.15); color:#25D366; }
+.order-items-text { font-size:13px; color:var(--muted); margin-bottom:10px; line-height:1.6; }
+.order-total-row { display:flex; justify-content:space-between; margin-bottom:12px; }
+.order-total-label { font-size:12px; color:var(--muted); }
+.order-total-val { font-family:var(--font-display); font-size:18px; color:var(--gold); font-weight:600; }
+.order-actions { display:flex; gap:8px; }
+.action-btn { flex:1; padding:10px; border:none; border-radius:10px; font-family:var(--font-body); font-size:12px; font-weight:700; cursor:pointer; transition:all 0.2s; letter-spacing:0.3px; }
+.btn-working { background:rgba(59,130,246,0.12); color:#3b82f6; border:1px solid rgba(59,130,246,0.25); }
+.btn-working.active { background:#3b82f6; color:white; }
+.btn-complete { background:var(--gold-dim); color:var(--gold); border:1px solid rgba(232,188,90,0.3); }
+.empty-state { text-align:center; padding:40px 20px; color:var(--muted); }
+.empty-state-emoji { font-size:40px; margin-bottom:12px; display:block; }
+.menu-toggle-card { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:12px; }
+.menu-toggle-cat { background:var(--charcoal); color:var(--gold); padding:10px 16px; font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; border-bottom:1px solid var(--border); }
+.menu-toggle-item { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--border); }
+.menu-toggle-item:last-child { border-bottom:none; }
+.toggle-name { font-size:14px; font-weight:500; color:var(--cream); }
+.toggle-price { font-size:12px; color:var(--muted); margin-top:2px; }
+.toggle-switch { position:relative; width:44px; height:24px; flex-shrink:0; }
+.toggle-switch input { opacity:0; width:0; height:0; }
+.toggle-slider { position:absolute; inset:0; background:#333; border-radius:12px; cursor:pointer; transition:background 0.3s; }
+.toggle-slider::before { content:''; position:absolute; left:3px; top:3px; width:18px; height:18px; background:white; border-radius:50%; transition:transform 0.3s; }
+.toggle-switch input:checked + .toggle-slider { background:var(--amber); }
+.toggle-switch input:checked + .toggle-slider::before { transform:translateX(20px); }
+.notif-banner { position:fixed; top:0; left:0; right:0; background:linear-gradient(135deg,var(--amber),var(--gold)); color:var(--black); padding:14px 20px; font-size:14px; font-weight:700; text-align:center; z-index:900; transform:translateY(-100%); transition:transform 0.3s; box-shadow:0 4px 20px rgba(200,146,42,0.4); }
+.notif-banner.show { transform:translateY(0); }
+.toast { position:fixed; bottom:100px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--charcoal); border:1px solid var(--border); color:var(--cream); padding:10px 20px; border-radius:30px; font-size:13px; font-weight:600; opacity:0; transition:all 0.3s; z-index:999; white-space:nowrap; pointer-events:none; }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* Picker modals */
+.picker-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); z-index:750; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.2s; }
+.picker-overlay.open { opacity:1; pointer-events:all; }
+.picker-modal { background:var(--charcoal); border:1px solid var(--border); border-radius:20px; padding:26px 24px 22px; width:88%; max-width:340px; box-shadow:0 20px 60px rgba(0,0,0,0.5); transform:scale(0.92); transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+.picker-overlay.open .picker-modal { transform:scale(1); }
+.picker-title { font-family:var(--font-display); font-size:20px; font-weight:600; color:var(--cream); margin-bottom:6px; }
+.picker-sub { font-size:12px; color:var(--muted); margin-bottom:18px; line-height:1.6; }
+.picker-field-label { font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; display:block; }
+.picker-input { width:100%; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:11px 14px; font-size:14px; font-family:var(--font-body); color:var(--cream); outline:none; margin-bottom:18px; box-sizing:border-box; }
+.picker-input:focus { border-color:rgba(232,188,90,0.4); }
+.picker-actions { display:flex; gap:10px; }
+.picker-cancel { flex:1; background:var(--glass); border:1px solid var(--border); border-radius:10px; padding:12px; font-family:var(--font-body); font-size:13px; font-weight:600; color:var(--muted); cursor:pointer; }
+.picker-set { flex:2; background:linear-gradient(135deg,var(--amber),var(--gold)); border:none; border-radius:10px; padding:12px; font-family:var(--font-body); font-size:13px; font-weight:700; color:var(--black); cursor:pointer; }
+
+/* Phone prompt */
+.phone-prompt-row { display:flex; align-items:center; background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:18px; }
+.phone-prompt-prefix { padding:12px 12px; font-size:13px; color:var(--muted); border-right:1px solid var(--border); background:var(--glass); }
+.phone-prompt-inp { flex:1; background:transparent; border:none; outline:none; padding:12px; font-family:var(--font-body); font-size:14px; color:var(--cream); }
+
+/* Shop overlays */
+.shop-overlay { position:fixed; inset:0; z-index:450; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:30px 24px; text-align:center; opacity:0; pointer-events:none; transition:opacity 0.4s; }
+.shop-overlay.show { opacity:1; pointer-events:all; }
+.shop-closed-overlay { background:linear-gradient(160deg,#0a0a0a 0%,#0f0c09 100%); }
+.shop-break-overlay { background:linear-gradient(160deg,#0d0d0a 0%,#110e07 100%); }
+.overlay-board {
+  background:linear-gradient(145deg,#1a0e0e,#2a1212);
+  border:2px solid var(--amber); border-radius:16px;
+  padding:20px 32px; margin-bottom:24px;
+  animation:boardSway 3s ease-in-out infinite; transform-origin:top center;
+  position:relative;
+}
+.overlay-board::before { content:''; position:absolute; top:-18px; left:50%; transform:translateX(-50%); width:2px; height:18px; background:var(--amber); }
+.overlay-board-text { font-family:var(--font-display); font-size:36px; font-weight:700; color:var(--cream); letter-spacing:5px; text-transform:uppercase; }
+@keyframes boardSway { 0%,100%{transform:rotate(-3deg);} 50%{transform:rotate(3deg);} }
+.overlay-msg { font-family:var(--font-display); font-size:22px; font-weight:600; color:var(--gold); margin-bottom:10px; }
+.overlay-sub { font-size:14px; color:var(--muted); line-height:1.8; }
+.admin-float-dot { position:fixed; top:18px; right:18px; width:12px; height:12px; border-radius:50%; cursor:pointer; z-index:460; display:none; border:2px solid rgba(255,255,255,0.3); }
+.admin-float-dot.visible { display:block; }
+.admin-float-dot.status-break { background:var(--amber); animation:floatPulse 2s ease-in-out infinite; }
+.admin-float-dot.status-closed { background:#e53e3e; animation:floatPulse 2s ease-in-out infinite; }
+@keyframes floatPulse { 0%,100%{box-shadow:0 0 0 0 rgba(232,188,90,0.5);} 50%{box-shadow:0 0 0 6px transparent;} }
+
+@media(max-width:380px){
+  .menu-grid{grid-template-columns:1fr;}
+  .hero-title{font-size:48px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <div class="logo-main">Velvet Grounds</div>
+      <div class="logo-sub">Specialty Coffee & Kitchen</div>
+    </div>
+    <div class="header-right">
+      <button class="cart-pill hidden" id="cartPill" onclick="openCart()">
+        ☕ Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <span class="admin-dot" id="adminDot" title="Admin"></span>
+    </div>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-eyebrow">Est. 2021 · Jubilee Hills, Hyderabad</div>
+  <h1 class="hero-title">
+    Where every <em>sip</em>
+    <span class="line2">tells a story</span>
+  </h1>
+  <p class="hero-desc">Handcrafted specialty coffee, seasonal small plates, and an atmosphere that slows time down.</p>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Explore</span>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">4.9★</div>
+      <div class="stat-label">Rating</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">12K+</div>
+      <div class="stat-label">Guests</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">38+</div>
+      <div class="stat-label">Menu Items</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CATEGORY NAV ══ -->
+<nav class="cat-nav" id="catNav">
+  <div class="cat-nav-inner" id="catNavInner"></div>
+</nav>
+
+<!-- ══ MENU ══ -->
+<section class="menu-section">
+  <div class="menu-inner" id="menuInner"></div>
+</section>
+
+<!-- ══ ABOUT STRIP ══ -->
+<div class="about-strip">
+  <div class="about-inner">
+    <div class="about-quote">
+      "We brew coffee like <em>stories</em> — with patience, intention, and a touch of the unexpected."
+    </div>
+    <div class="about-author">— The Velvet Grounds Collective</div>
+  </div>
+</div>
+
+<!-- ══ REVIEWS ══ -->
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <div class="section-eyebrow">✦ Voices ✦</div>
+    <div class="section-title">What Our Guests Say</div>
+    <div class="reviews-track-wrap">
+      <div class="reviews-track" id="reviewsTrack"></div>
+    </div>
+    <div class="review-dots" id="reviewDots"></div>
+
+    <!-- Live review input -->
+    <div class="review-new">
+      <div class="review-new-title">
+        <div class="live-dot"></div>
+        Leave a Review
+      </div>
+      <div class="star-picker" id="starPicker">
+        <span class="star-pick" data-v="1">★</span>
+        <span class="star-pick" data-v="2">★</span>
+        <span class="star-pick" data-v="3">★</span>
+        <span class="star-pick" data-v="4">★</span>
+        <span class="star-pick" data-v="5">★</span>
+      </div>
+      <textarea class="review-textarea" id="reviewText" placeholder="Tell us about your experience…"></textarea>
+      <input type="text" class="review-name-inp" id="reviewAuthor" placeholder="Your name">
+      <button class="submit-review-btn" onclick="submitReview()">✦ Post Review</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Velvet Grounds</div>
+    <div class="footer-tagline">Specialty Coffee & Kitchen</div>
+    <div class="footer-info">
+      <div>📞 <a href="tel:9876543210">+91 98765 43210</a></div>
+      <div style="margin-top:8px">📍 14B, Raffles Row, Jubilee Hills<br>Hyderabad – 500034</div>
+      <div style="margin-top:6px">🕐 Mon–Sun · 8:00 AM – 11:00 PM</div>
+    </div>
+    <div>
+      <!-- Instagram icon only – no redirect -->
+      <span class="footer-ig-btn" title="@velvetgrounds.hyd">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </span>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-copy">© 2025 Velvet Grounds. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- ══ TTS FOOTER ══ -->
+<div class="tts-footer">
+  <span class="tts-label">Designed & Built by</span>
+  <a href="https://thetakeoffstudio.co.in/" target="_blank" rel="noopener" class="tts-brand">
+    <div class="tts-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="5,13 12,6 19,13" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="5,19 12,12 19,19" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="tts-name">The Takeoff <span>Studio</span></span>
+  </a>
+</div>
+
+<!-- ══ FLOATING ADMIN DOT ══ -->
+<div class="admin-float-dot" id="adminFloatDot"></div>
+
+<!-- ══ SHOP OVERLAYS ══ -->
+<div class="shop-overlay shop-closed-overlay" id="shopClosedOverlay">
+  <div class="overlay-board"><div class="overlay-board-text">Closed</div></div>
+  <div class="overlay-msg">We're closed for today ✨</div>
+  <div class="overlay-sub">Come back tomorrow — we'll have your table ready.<br>Velvet Grounds opens daily at 8:00 AM.</div>
+</div>
+<div class="shop-overlay shop-break-overlay" id="shopBreakOverlay">
+  <div style="font-size:72px;margin-bottom:16px;animation:orbFloat 2s ease-in-out infinite">☕</div>
+  <div class="overlay-msg">On a short break...</div>
+  <div class="overlay-sub">We're recharging for you.<br>Back in just a little while — good things take time.</div>
+</div>
+
+<!-- ══ CART ══ -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-handle"></div>
+  <div class="cart-head">
+    <div class="cart-title">Your Order</div>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-list" id="cartList"></div>
+  <div class="cart-foot">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-amt" id="cartTotal">₹0</span>
+    </div>
+    <button class="order-btn" onclick="placeOrder()">Order via WhatsApp →</button>
+  </div>
+</div>
+
+<!-- ══ CONFIRM ══ -->
+<div class="confirm-screen" id="confirmScreen">
+  <div class="confirm-glow">✨</div>
+  <div class="confirm-id" id="confirmId"></div>
+  <div class="confirm-title">Order Placed!</div>
+  <div class="confirm-sub">Thank you for choosing Velvet Grounds ☕</div>
+  <div class="confirm-eta">
+    <div class="confirm-eta-label">Estimated Time</div>
+    <div class="confirm-eta-val">⏱ 12–18 mins</div>
+  </div>
+  <div class="confirm-items" id="confirmItems"></div>
+  <div class="phone-input-wrap">
+    <label class="phone-label">📱 WhatsApp Number <span style="color:var(--red);font-size:10px">(required)</span></label>
+    <div class="phone-row">
+      <span class="phone-prefix">🇮🇳 +91</span>
+      <input type="tel" class="phone-input" id="customerPhone" maxlength="10" placeholder="10-digit number" inputmode="numeric">
+    </div>
+  </div>
+  <button class="wa-btn" id="waBtn"><span style="font-size:18px">💬</span> Send Order via WhatsApp</button>
+  <button class="back-btn" onclick="closeConfirm()">Back to Menu</button>
+</div>
+
+<!-- ══ ADMIN LOGIN ══ -->
+<div class="admin-login-overlay" id="adminLoginOverlay">
+  <div class="admin-login-card">
+    <div class="admin-login-logo">Velvet Grounds</div>
+    <div class="admin-login-sub">Admin Access</div>
+    <div class="form-group">
+      <label class="form-label">Username</label>
+      <input type="text" class="form-input" id="adminUser" placeholder="Enter username">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-input" id="adminPass" placeholder="Enter password">
+    </div>
+    <button class="login-btn" onclick="doLogin()">Login →</button>
+    <div class="login-err" id="loginErr">Invalid credentials</div>
+    <button class="cancel-login" onclick="closeAdminLogin()">Cancel</button>
+  </div>
+</div>
+
+<!-- ══ ADMIN PANEL ══ -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-head">
+    <div>
+      <div class="admin-head-title">Dashboard</div>
+      <div class="admin-head-sub">Velvet Grounds · Admin</div>
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+  <div class="admin-status-bar">
+    <div class="status-toggle-row">
+      <div class="status-toggle-label">☕ Short Break<span class="status-toggle-sub">Hides menu</span></div>
+      <label class="status-toggle-switch break-toggle">
+        <input type="checkbox" id="breakToggle" onchange="setShopStatus('break',this.checked)">
+        <span class="status-toggle-slider"></span>
+      </label>
+    </div>
+    <div class="status-toggle-row">
+      <div class="status-toggle-label">🔒 Closed<span class="status-toggle-sub">Shows closed board</span></div>
+      <label class="status-toggle-switch">
+        <input type="checkbox" id="closedToggle" onchange="setShopStatus('closed',this.checked)">
+        <span class="status-toggle-slider"></span>
+      </label>
+    </div>
+  </div>
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="switchTab('orders',this)">🧾 Orders</button>
+    <button class="admin-tab" onclick="switchTab('menu',this)">☕ Menu</button>
+    <button class="admin-tab" onclick="switchTab('completed',this)">✅ Done</button>
+  </div>
+  <div class="admin-content" id="adminContent"></div>
+</div>
+
+<!-- ══ PICKERS ══ -->
+<div class="picker-overlay" id="breakPickerOverlay">
+  <div class="picker-modal">
+    <div class="picker-title">☕ Short Break</div>
+    <div class="picker-sub">Set your return time — customers will see the break screen.</div>
+    <label class="picker-field-label">Back at</label>
+    <input type="time" class="picker-input" id="breakTimeInput">
+    <div class="picker-actions">
+      <button class="picker-cancel" onclick="cancelBreakPicker()">Cancel</button>
+      <button class="picker-set" onclick="confirmBreakPicker()">✓ Set Break</button>
+    </div>
+  </div>
+</div>
+<div class="picker-overlay" id="closedPickerOverlay">
+  <div class="picker-modal">
+    <div class="picker-title">🔒 Closed</div>
+    <div class="picker-sub">Set your reopen date — customers will see the closed board.</div>
+    <label class="picker-field-label">Reopening on</label>
+    <input type="date" class="picker-input" id="closedDateInput">
+    <div class="picker-actions">
+      <button class="picker-cancel" onclick="cancelClosedPicker()">Cancel</button>
+      <button class="picker-set" onclick="confirmClosedPicker()">✓ Set Closed</button>
+    </div>
+  </div>
+</div>
+<div class="picker-overlay" id="phonePromptOverlay">
+  <div class="picker-modal">
+    <div class="picker-title">📱 Customer Number</div>
+    <div class="picker-sub">Customer didn't save their number. Enter it to send the ready notification.</div>
+    <label class="picker-field-label">WhatsApp Number</label>
+    <div class="phone-prompt-row">
+      <span class="phone-prompt-prefix">🇮🇳 +91</span>
+      <input type="tel" class="phone-prompt-inp" id="adminPhoneEntry" maxlength="10" placeholder="10-digit number" inputmode="numeric">
+    </div>
+    <div class="picker-actions">
+      <button class="picker-cancel" onclick="cancelPhonePrompt()">Cancel</button>
+      <button class="picker-set" onclick="confirmPhonePrompt()">💬 Send WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<div class="notif-banner" id="notifBanner"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════
+//  MENU DATA
+// ══════════════════════════════
+const MENU = [
+  {
+    id:'sigs', name:'Signatures', emoji:'☕',
+    items:[
+      { id:'s1', name:'Velvet Espresso', price:180, desc:'Double-pulled ristretto with hazelnut undertones', img:'https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=400&q=80', badge:'House Special' },
+      { id:'s2', name:'Rose Latte', price:220, desc:'Oat milk latte with rose-cardamom cold foam', img:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80' },
+      { id:'s3', name:'Midnight Cold Brew', price:240, desc:'18-hour steep, served over obsidian ice', img:'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&q=80', badge:'New' },
+      { id:'s4', name:'Golden Turmeric Latte', price:200, desc:'Ceremonial turmeric, black pepper, coconut milk', img:'https://images.unsplash.com/photo-1534040385115-33dcb3acba5b?w=400&q=80' },
+    ]
+  },
+  {
+    id:'coffee', name:'Coffee Bar', emoji:'🫖',
+    items:[
+      { id:'cf1', name:'Cappuccino', price:160, desc:'Classic Italian ratio with microfoam art', img:'https://images.unsplash.com/photo-1534687941688-651ccaafbff8?w=400&q=80' },
+      { id:'cf2', name:'Flat White', price:180, desc:'Ristretto base with velvety steamed milk', img:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&q=80' },
+      { id:'cf3', name:'Americano', price:140, desc:'Long black with single-origin Ethiopian', img:'https://images.unsplash.com/photo-1448043552756-e747b7a2b2b8?w=400&q=80' },
+      { id:'cf4', name:'Pour Over', price:260, desc:'Chemex pour over · rotating single origins', img:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80', badge:'Slow Bar' },
+    ]
+  },
+  {
+    id:'teas', name:'Artisan Teas', emoji:'🍃',
+    items:[
+      { id:'t1', name:'Jasmine Bloom', price:180, desc:'First-flush jasmine with honey crystals', img:'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&q=80' },
+      { id:'t2', name:'Masala Chai', price:140, desc:'House blend spices, jaggery, buffalo milk', img:'https://images.unsplash.com/photo-1596803244536-2b4d6a9c0c3b?w=400&q=80', badge:'Popular' },
+      { id:'t3', name:'Matcha Ceremony', price:220, desc:'Ceremonial grade A1 matcha, cold or warm', img:'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=400&q=80' },
+      { id:'t4', name:'Blue Butterfly Iced', price:200, desc:'Butterfly pea flower, lemon, tropical syrup', img:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80', badge:'Instagrammable' },
+    ]
+  },
+  {
+    id:'bakes', name:'Bakes & Pastry', emoji:'🥐',
+    items:[
+      { id:'b1', name:'Almond Croissant', price:180, desc:'Laminated dough, frangipane, flaked almonds', img:'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&q=80' },
+      { id:'b2', name:'Burnt Basque Cheesecake', price:240, desc:'Rustic Spanish-style, baked to perfection', img:'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=400&q=80', badge:'Best Seller' },
+      { id:'b3', name:'Tiramisu Jar', price:260, desc:'Classic Italian layers, house espresso', img:'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&q=80' },
+      { id:'b4', name:'Seasonal Waffle', price:280, desc:'Belgian waffle, rotating fruit compotes', img:'https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=400&q=80', badge:'Weekend Only' },
+    ]
+  },
+  {
+    id:'plates', name:'Small Plates', emoji:'🍽️',
+    items:[
+      { id:'p1', name:'Avocado Toast', price:280, desc:'Sourdough, whipped feta, chili, microgreens', img:'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400&q=80' },
+      { id:'p2', name:'Truffle Grilled Cheese', price:320, desc:'Aged cheddar, black truffle oil, brioche', img:'https://images.unsplash.com/photo-1528736235302-52922df5c122?w=400&q=80', badge:'Chef\'s Pick' },
+      { id:'p3', name:'Shakshuka', price:340, desc:'Spiced tomato, poached eggs, warm pita', img:'https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&q=80' },
+      { id:'p4', name:'French Onion Soup', price:280, desc:'Caramelised onions, Gruyère crouton', img:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&q=80' },
+    ]
+  },
+];
+
+// ══════════════════════════════
+//  FIREBASE
+// ══════════════════════════════
+const FIREBASE_DB = "https://velvet-grounds-rtdb.asia-southeast1.firebasedatabase.app/";
+const FB_READY = typeof FIREBASE_DB === 'string' && FIREBASE_DB.startsWith('https://') && FIREBASE_DB.includes('firebasedatabase.app');
+
+// ══════════════════════════════
+//  STATE
+// ══════════════════════════════
+let cart = {};
+let menuAvail = JSON.parse(localStorage.getItem('vg_avail') || '{}');
+let orders = [];
+let adminLoggedIn = false;
+let notifInterval = null;
+let adminSyncInterval = null;
+let currentAdminTab = 'orders';
+let audioCtx = null;
+let seenOrderIds = new Set();
+let shopStatus = localStorage.getItem('vg_shop_status') || 'open';
+let myOrderIds = JSON.parse(localStorage.getItem('vg_my_orders') || '[]');
+let customerPollInterval = null;
+let pendingNotifyId = null;
+
+// ══════════════════════════════
+//  HELPERS
+// ══════════════════════════════
+function getItem(id) {
+  for (const cat of MENU) { const it = cat.items.find(i=>i.id===id); if(it) return it; }
+  return null;
+}
+function isAvailable(id) { return menuAvail[id] !== false; }
+function generateOrderId() {
+  let seq = parseInt(localStorage.getItem('vg_order_seq')||'0')+1;
+  localStorage.setItem('vg_order_seq',seq);
+  return 'VG'+seq;
+}
+function saveOrders() { localStorage.setItem('vg_orders',JSON.stringify(orders)); }
+function saveAvail() { localStorage.setItem('vg_avail',JSON.stringify(menuAvail)); }
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ══════════════════════════════
+//  AUDIO
+// ══════════════════════════════
+function initAudio() {
+  if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
+}
+document.addEventListener('touchstart',initAudio,{once:true});
+document.addEventListener('click',initAudio,{once:true});
+
+function playBeep() {
+  try {
+    if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    const doPlay=()=>{
+      const now=audioCtx.currentTime;
+      [[880,.18,.55],[1175,.36,.5],[1397,.54,.45]].forEach(([freq,start,gain])=>{
+        const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+        o.connect(g);g.connect(audioCtx.destination);
+        o.type='triangle';o.frequency.setValueAtTime(freq,now+start);
+        g.gain.setValueAtTime(0,now+start);
+        g.gain.linearRampToValueAtTime(gain,now+start+0.01);
+        g.gain.exponentialRampToValueAtTime(0.001,now+start+0.48);
+        o.start(now+start);o.stop(now+start+0.5);
+      });
+    };
+    audioCtx.state==='suspended'?audioCtx.resume().then(doPlay):doPlay();
+  } catch(e){}
+}
+
+function playChime() {
+  try {
+    if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    const doPlay=()=>{
+      const now=audioCtx.currentTime;
+      [[523,0,.2,.5],[659,.2,.2,.5],[784,.4,.2,.5],[1047,.6,.5,.55]].forEach(([freq,start,dur,gain])=>{
+        const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+        o.connect(g);g.connect(audioCtx.destination);
+        o.type='sine';o.frequency.setValueAtTime(freq,now+start);
+        g.gain.setValueAtTime(0,now+start);
+        g.gain.linearRampToValueAtTime(gain,now+start+0.02);
+        g.gain.exponentialRampToValueAtTime(0.001,now+start+dur);
+        o.start(now+start);o.stop(now+start+dur+0.1);
+      });
+    };
+    audioCtx.state==='suspended'?audioCtx.resume().then(doPlay):doPlay();
+  } catch(e){}
+}
+
+// ══════════════════════════════
+//  FIREBASE HELPERS
+// ══════════════════════════════
+async function fbPushOrder(order) {
+  if(!FB_READY) return;
+  try { await fetch(`${FIREBASE_DB}orders/${order.id}.json`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(order)}); } catch(e){}
+}
+async function fbPatchOrder(id,patch) {
+  if(!FB_READY) return;
+  try { await fetch(`${FIREBASE_DB}orders/${id}.json`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(patch)}); } catch(e){}
+}
+async function fbFetchOrders() {
+  if(!FB_READY) return null;
+  try {
+    const res=await fetch(`${FIREBASE_DB}orders.json`);
+    if(!res.ok) return null;
+    const data=await res.json();
+    if(!data) return [];
+    return Object.values(data).sort((a,b)=>(b.ts||0)-(a.ts||0));
+  } catch(e){return null;}
+}
+async function fbSetShopStatus(status) {
+  if(!FB_READY) return;
+  try { await fetch(`${FIREBASE_DB}shopStatus.json`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({status})}); } catch(e){}
+}
+async function fbGetShopStatus() {
+  if(!FB_READY) return null;
+  try { const res=await fetch(`${FIREBASE_DB}shopStatus.json`); const d=await res.json(); return d?d.status:'open'; } catch(e){return null;}
+}
+async function fbSetMenuAvail(avail) {
+  if(!FB_READY) return;
+  try { await fetch(`${FIREBASE_DB}menuAvail.json`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(avail)}); } catch(e){}
+}
+async function fbGetMenuAvail() {
+  if(!FB_READY) return null;
+  try { const res=await fetch(`${FIREBASE_DB}menuAvail.json`); const d=await res.json(); return d||{}; } catch(e){return null;}
+}
+async function fbSetStatusMeta(meta) {
+  if(!FB_READY) return;
+  try { await fetch(`${FIREBASE_DB}shopMeta.json`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(meta)}); } catch(e){}
+}
+async function fbGetStatusMeta() {
+  if(!FB_READY) return null;
+  try { const res=await fetch(`${FIREBASE_DB}shopMeta.json`); return await res.json(); } catch(e){return null;}
+}
+
+// ══════════════════════════════
+//  RENDER MENU
+// ══════════════════════════════
+function renderMenu() {
+  const nav=document.getElementById('catNavInner');
+  const inner=document.getElementById('menuInner');
+  nav.innerHTML=''; inner.innerHTML='';
+
+  MENU.forEach(cat=>{
+    const pill=document.createElement('button');
+    pill.className='cat-pill';
+    pill.textContent=cat.emoji+' '+cat.name;
+    pill.onclick=()=>{ document.getElementById('cat-'+cat.id).scrollIntoView({behavior:'smooth',block:'start'}); };
+    nav.appendChild(pill);
+
+    const block=document.createElement('div');
+    block.className='category-block'; block.id='cat-'+cat.id;
+    block.innerHTML=`
+      <div class="cat-heading">
+        <span class="cat-emoji">${cat.emoji}</span>
+        <span class="cat-name">${cat.name}</span>
+        <span class="cat-count">${cat.items.length} items</span>
+      </div>
+      <div class="menu-grid" id="grid-${cat.id}"></div>
+    `;
+    inner.appendChild(block);
+
+    const grid=document.getElementById('grid-'+cat.id);
+    cat.items.forEach(item=>{ grid.appendChild(buildCard(item)); });
+  });
+}
+
+function buildCard(item) {
+  const avail=isAvailable(item.id);
+  const div=document.createElement('div');
+  div.className='menu-card'+(avail?'':' unavailable');
+  div.id='card-'+item.id;
+  div.style.opacity=avail?'1':'0.4';
+  div.innerHTML=`
+    ${item.badge?`<div class="card-badge">${item.badge}</div>`:''}
+    <div class="card-img-wrap">
+      <img class="card-img" src="${item.img}" alt="${item.name}" loading="lazy"
+           onerror="this.style.display='none'">
+      <div class="card-img-gradient"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-name">${item.name}</div>
+      <div class="card-desc">${item.desc}</div>
+      <div class="card-footer">
+        <div class="card-price">₹${item.price}</div>
+        <div class="card-add-btn ${(cart[item.id]||0)>0?'added':''}" id="addbtn-${item.id}"
+             onclick="${avail?`addToCart('${item.id}')`:'void(0)'}">
+          ${(cart[item.id]||0)>0?`✓ ${cart[item.id]}`:'＋'}
+        </div>
+      </div>
+    </div>
+  `;
+  return div;
+}
+
+function refreshCard(itemId) {
+  const card=document.getElementById('card-'+itemId);
+  if(!card) return;
+  const item=getItem(itemId); if(!item) return;
+  const avail=isAvailable(itemId);
+  const qty=cart[itemId]||0;
+  card.style.opacity=avail?'1':'0.4';
+  const btn=document.getElementById('addbtn-'+itemId);
+  if(btn){
+    btn.className='card-add-btn'+(qty>0?' added':'');
+    btn.textContent=qty>0?`✓ ${qty}`:'＋';
+    btn.onclick=avail?()=>addToCart(itemId):null;
+  }
+}
+
+// ══════════════════════════════
+//  CART
+// ══════════════════════════════
+function addToCart(id) {
+  const item=getItem(id); if(!item||!isAvailable(id)) return;
+  cart[id]=(cart[id]||0)+1;
+  refreshCard(id);
+  updateCartUI();
+  showToast('Added: '+item.name);
+  // Pulse the add button
+  const btn=document.getElementById('addbtn-'+id);
+  if(btn){
+    btn.style.transform='scale(1.3)';
+    setTimeout(()=>btn.style.transform='',200);
+  }
+}
+
+function removeFromCart(id) {
+  delete cart[id];
+  refreshCard(id);
+  updateCartUI();
+}
+
+function getCartTotal() {
+  let t=0;
+  for(const[id,qty]of Object.entries(cart)){const it=getItem(id);if(it)t+=it.price*qty;}
+  return t;
+}
+function getCartCount() { return Object.values(cart).reduce((a,b)=>a+b,0); }
+
+function updateCartUI() {
+  const count=getCartCount();
+  const pill=document.getElementById('cartPill');
+  const countEl=document.getElementById('cartCount');
+  countEl.textContent=count;
+  if(count>0) pill.classList.remove('hidden');
+  else pill.classList.add('hidden');
+  renderCartList();
+}
+
+function renderCartList() {
+  const list=document.getElementById('cartList');
+  const totalEl=document.getElementById('cartTotal');
+  list.innerHTML='';
+  const entries=Object.entries(cart).filter(([,q])=>q>0);
+  if(entries.length===0){
+    list.innerHTML='<div style="padding:28px;text-align:center;color:var(--muted);font-size:14px">Your cart is empty</div>';
+  } else {
+    entries.forEach(([id,qty])=>{
+      const item=getItem(id); if(!item) return;
+      const row=document.createElement('div');
+      row.className='cart-row';
+      row.innerHTML=`
+        <div class="cart-row-name">${item.name}</div>
+        <span class="cart-row-qty">×${qty}</span>
+        <span class="cart-row-price">₹${item.price*qty}</span>
+        <span class="cart-row-remove" onclick="removeFromCart('${id}')">✕</span>
+      `;
+      list.appendChild(row);
+    });
+  }
+  totalEl.textContent='₹'+getCartTotal();
+}
+
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartDrawer').classList.add('open');
+  renderCartList();
+}
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartDrawer').classList.remove('open');
+}
+
+// ══════════════════════════════
+//  PLACE ORDER
+// ══════════════════════════════
+function placeOrder() {
+  if(getCartCount()===0){showToast('Your cart is empty!');return;}
+  const orderId=generateOrderId();
+  const total=getCartTotal();
+  const itemsList=Object.entries(cart).map(([id,qty])=>{
+    const it=getItem(id); return it?`${it.name} ×${qty}`:'';
+  }).filter(Boolean);
+
+  const order={
+    id:orderId,
+    items:Object.entries(cart).map(([id,qty])=>({id,qty,name:getItem(id)?.name,price:getItem(id)?.price})),
+    total,status:'new',
+    time:new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),
+    date:new Date().toLocaleDateString('en-IN'),
+    ts:Date.now(),
+  };
+
+  orders.unshift(order);
+  saveOrders();
+  fbPushOrder(order);
+  myOrderIds.push(orderId);
+  localStorage.setItem('vg_my_orders',JSON.stringify(myOrderIds));
+
+  const waMsg=`🍵 *New Order — ${orderId}*\n\nItems:\n${itemsList.map(i=>'• '+i).join('\n')}\n\n💰 Total: ₹${total}\n\n⏱ Est. 12–18 mins\n📍 Velvet Grounds, Jubilee Hills`;
+  const waUrl=`https://wa.me/919876543210?text=${encodeURIComponent(waMsg)}`;
+
+  document.getElementById('confirmId').textContent=orderId;
+  document.getElementById('customerPhone').value='';
+  document.getElementById('confirmItems').innerHTML=itemsList.map(i=>{
+    const p=i.split(' ×');
+    const it=Object.entries(cart).find(([id])=>getItem(id)?.name===p[0]);
+    const price=it?getItem(it[0])?.price*it[1]:0;
+    return `<div class="confirm-item-row"><span>${i}</span><span>₹${price}</span></div>`;
+  }).join('');
+
+  document.getElementById('waBtn').onclick=()=>{
+    const phoneInput=document.getElementById('customerPhone');
+    const phone=phoneInput.value.trim().replace(/\D/g,'');
+    if(phone.length!==10){
+      phoneInput.style.outline='2px solid var(--red)';
+      phoneInput.closest('.phone-row').style.borderColor='var(--red)';
+      phoneInput.focus();
+      showToast('📱 Enter your WhatsApp number first');
+      setTimeout(()=>{phoneInput.style.outline='';phoneInput.closest('.phone-row').style.borderColor='';},2000);
+      return;
+    }
+    order.phone='91'+phone;
+    fbPatchOrder(order.id,{phone:'91'+phone});
+    const lo=orders.find(x=>x.id===order.id);
+    if(lo) lo.phone='91'+phone;
+    saveOrders();
+    window.open(waUrl,'_blank');
+  };
+
+  document.getElementById('confirmScreen').classList.add('open');
+  cart={};
+  renderMenu();
+  updateCartUI();
+  closeCart();
+  if(adminLoggedIn){triggerAdminNotif(orderId);renderAdminContent();}
+}
+
+function closeConfirm() { document.getElementById('confirmScreen').classList.remove('open'); }
+
+// ══════════════════════════════
+//  REVIEWS
+// ══════════════════════════════
+let selectedStars=5;
+const DEFAULT_REVIEWS=[
+  {stars:5,text:"The Rose Latte was absolutely ethereal. The cold foam with cardamom is unlike anything I've had.",name:'Priya M.',date:'2 days ago',init:'P',badge:'Verified'},
+  {stars:5,text:"Burnt Basque Cheesecake + Pour Over at 9am on a Sunday — perfection. This café understands atmosphere.",name:'Arjun R.',date:'1 week ago',init:'A',badge:'Verified'},
+  {stars:5,text:"Finally a café in Hyderabad that takes coffee seriously. The single-origin Ethiopian is extraordinary.",name:'Shreya K.',date:'4 days ago',init:'S',badge:'Verified'},
+  {stars:4,text:"Truffle Grilled Cheese is sinful. Service is impeccable and the ambience feels like a page out of a novel.",name:'Dev N.',date:'3 days ago',init:'D',badge:'Verified'},
+  {stars:5,text:"Came for the Blue Butterfly Iced Tea, stayed for the Tiramisu Jar. Will return every week.",name:'Anika S.',date:'6 days ago',init:'A',badge:'Verified'},
+];
+
+function loadReviews() {
+  const saved=JSON.parse(localStorage.getItem('vg_reviews')||'[]');
+  return [...saved,...DEFAULT_REVIEWS];
+}
+
+let reviews=loadReviews();
+let currentReviewIdx=0;
+
+function renderReviews() {
+  const track=document.getElementById('reviewsTrack');
+  const dots=document.getElementById('reviewDots');
+  track.innerHTML='';
+  dots.innerHTML='';
+  reviews.forEach((r,i)=>{
+    const card=document.createElement('div');
+    card.className='review-card';
+    card.innerHTML=`
+      <div class="review-badge">${r.badge||'Guest'}</div>
+      <div class="review-stars">${'<span>★</span>'.repeat(r.stars)}${'<span style="color:rgba(200,146,42,0.2)">★</span>'.repeat(5-r.stars)}</div>
+      <div class="review-text">"${r.text}"</div>
+      <div class="review-author">
+        <div class="review-avatar">${r.init}</div>
+        <div><div class="review-name">${r.name}</div><div class="review-date">${r.date}</div></div>
+      </div>
+    `;
+    track.appendChild(card);
+    const dot=document.createElement('div');
+    dot.className='rdot'+(i===currentReviewIdx?' active':'');
+    dot.onclick=()=>goToReview(i);
+    dots.appendChild(dot);
+  });
+  goToReview(currentReviewIdx,false);
+}
+
+function goToReview(idx,animate=true) {
+  currentReviewIdx=idx;
+  const track=document.getElementById('reviewsTrack');
+  const cardW=track.querySelector('.review-card')?.offsetWidth||300;
+  track.style.transition=animate?'transform 0.6s cubic-bezier(0.23,1,0.32,1)':'none';
+  track.style.transform=`translateX(calc(-${idx}*(${cardW}px + 16px)))`;
+  document.querySelectorAll('.rdot').forEach((d,i)=>{
+    d.className='rdot'+(i===idx?' active':'');
+  });
+}
+
+// Star picker
+document.getElementById('starPicker').addEventListener('click',e=>{
+  if(!e.target.matches('.star-pick')) return;
+  selectedStars=parseInt(e.target.dataset.v);
+  document.querySelectorAll('.star-pick').forEach((s,i)=>{
+    s.className='star-pick'+(i<selectedStars?' active':'');
+  });
+});
+// Init stars active
+document.querySelectorAll('.star-pick').forEach((s,i)=>{s.className='star-pick'+(i<5?' active':'');});
+
+function submitReview() {
+  const text=document.getElementById('reviewText').value.trim();
+  const name=document.getElementById('reviewAuthor').value.trim();
+  if(!text||!name){showToast('Please fill in your review and name');return;}
+  if(text.length<10){showToast('Review too short!');return;}
+  const now=new Date();
+  const newReview={
+    stars:selectedStars,
+    text,name,
+    date:'Just now',
+    init:name[0].toUpperCase(),
+    badge:'New',
+  };
+  reviews.unshift(newReview);
+  const saved=JSON.parse(localStorage.getItem('vg_reviews')||'[]');
+  saved.unshift(newReview);
+  localStorage.setItem('vg_reviews',JSON.stringify(saved.slice(0,20)));
+  document.getElementById('reviewText').value='';
+  document.getElementById('reviewAuthor').value='';
+  currentReviewIdx=0;
+  renderReviews();
+  showToast('✦ Review posted! Thank you');
+}
+
+// Auto-rotate reviews
+setInterval(()=>{
+  if(document.querySelectorAll('.review-card').length===0) return;
+  const next=(currentReviewIdx+1)%reviews.length;
+  goToReview(next);
+},5000);
+
+// ══════════════════════════════
+//  SHOP STATUS
+// ══════════════════════════════
+function setShopStatus(type,enabled) {
+  if(type==='closed'){
+    if(enabled){
+      const today=new Date(); const tomorrow=new Date(today); tomorrow.setDate(today.getDate()+1);
+      document.getElementById('closedDateInput').value=tomorrow.toISOString().split('T')[0];
+      document.getElementById('closedDateInput').min=today.toISOString().split('T')[0];
+      document.getElementById('closedPickerOverlay').classList.add('open');
+      document.getElementById('closedToggle').checked=false; return;
+    } else {
+      shopStatus=shopStatus==='closed'?'open':shopStatus;
+      localStorage.removeItem('vg_reopen_date'); fbSetStatusMeta({reopenDate:null});
+    }
+  } else if(type==='break'){
+    if(enabled){
+      const now=new Date(Date.now()+30*60000);
+      document.getElementById('breakTimeInput').value=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+      document.getElementById('breakPickerOverlay').classList.add('open');
+      document.getElementById('breakToggle').checked=false; return;
+    } else {
+      shopStatus=shopStatus==='break'?'open':shopStatus;
+      localStorage.removeItem('vg_back_time'); fbSetStatusMeta({backTime:null});
+    }
+  }
+  applyShopStatus();
+}
+
+function confirmBreakPicker() {
+  const t=document.getElementById('breakTimeInput').value;
+  if(!t){showToast('Pick a time');return;}
+  document.getElementById('breakPickerOverlay').classList.remove('open');
+  document.getElementById('breakToggle').checked=true;
+  document.getElementById('closedToggle').checked=false;
+  shopStatus='break';
+  localStorage.setItem('vg_back_time',t);
+  localStorage.removeItem('vg_reopen_date');
+  fbSetStatusMeta({backTime:t,reopenDate:null});
+  applyShopStatus();
+}
+function cancelBreakPicker(){document.getElementById('breakPickerOverlay').classList.remove('open');document.getElementById('breakToggle').checked=false;}
+function confirmClosedPicker() {
+  const d=document.getElementById('closedDateInput').value;
+  if(!d){showToast('Pick a date');return;}
+  document.getElementById('closedPickerOverlay').classList.remove('open');
+  document.getElementById('closedToggle').checked=true;
+  document.getElementById('breakToggle').checked=false;
+  shopStatus='closed';
+  localStorage.setItem('vg_reopen_date',d);
+  localStorage.removeItem('vg_back_time');
+  fbSetStatusMeta({reopenDate:d,backTime:null});
+  applyShopStatus();
+}
+function cancelClosedPicker(){document.getElementById('closedPickerOverlay').classList.remove('open');document.getElementById('closedToggle').checked=false;}
+
+function applyShopStatus() {
+  localStorage.setItem('vg_shop_status',shopStatus);
+  fbSetShopStatus(shopStatus);
+  updateShopStatusOverlay();
+  showToast(shopStatus==='open'?'✅ Shop is now Open':shopStatus==='break'?'☕ Break mode set':'🔒 Shop closed');
+}
+
+function applyStatusMeta(meta){
+  if(!meta) return;
+  if(meta.backTime!==undefined){meta.backTime?localStorage.setItem('vg_back_time',meta.backTime):localStorage.removeItem('vg_back_time');}
+  if(meta.reopenDate!==undefined){meta.reopenDate?localStorage.setItem('vg_reopen_date',meta.reopenDate):localStorage.removeItem('vg_reopen_date');}
+}
+
+function updateShopStatusOverlay() {
+  const closedEl=document.getElementById('shopClosedOverlay');
+  const breakEl=document.getElementById('shopBreakOverlay');
+  const menuSection=document.querySelector('.menu-section');
+  const catNav=document.getElementById('catNav');
+  const hero=document.querySelector('.hero');
+  const statBar=document.querySelector('.stats-bar');
+  const aboutStrip=document.querySelector('.about-strip');
+  const reviewsSec=document.querySelector('.reviews-section');
+  const floatDot=document.getElementById('adminFloatDot');
+  if(shopStatus==='closed'){
+    closedEl.classList.add('show'); breakEl.classList.remove('show');
+    [menuSection,catNav,hero,statBar,aboutStrip,reviewsSec].forEach(el=>{if(el)el.style.display='none';});
+    floatDot.className='admin-float-dot visible status-closed';
+    // Show reopen date
+    const d=localStorage.getItem('vg_reopen_date');
+    let info=document.getElementById('closedReopenInfo');
+    if(!info){info=document.createElement('div');info.id='closedReopenInfo';info.style.cssText='margin-top:18px;font-size:15px;font-weight:700;color:rgba(232,188,90,0.85);background:rgba(232,188,90,0.07);border:1px solid rgba(232,188,90,0.2);border-radius:12px;padding:10px 24px;';closedEl.appendChild(info);}
+    info.style.display=d?'block':'none';
+    if(d){const dt=new Date(d+'T00:00:00');info.textContent='📅 Back on '+dt.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});}
+  } else if(shopStatus==='break'){
+    breakEl.classList.add('show'); closedEl.classList.remove('show');
+    [menuSection,catNav,statBar,aboutStrip,reviewsSec].forEach(el=>{if(el)el.style.display='none';});
+    floatDot.className='admin-float-dot visible status-break';
+    const bt=localStorage.getItem('vg_back_time');
+    let info=document.getElementById('breakBackInfo');
+    if(!info){info=document.createElement('div');info.id='breakBackInfo';info.style.cssText='margin-top:18px;font-size:16px;font-weight:700;color:var(--gold);background:rgba(232,188,90,0.07);border:1px solid rgba(232,188,90,0.2);border-radius:12px;padding:10px 24px;';breakEl.appendChild(info);}
+    info.style.display=bt?'block':'none';
+    if(bt){const[hh,mm]=bt.split(':');const d=new Date();d.setHours(+hh,+mm);info.textContent='⏰ Back by '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});}
+  } else {
+    closedEl.classList.remove('show'); breakEl.classList.remove('show');
+    [menuSection,catNav,hero,statBar,aboutStrip,reviewsSec].forEach(el=>{if(el)el.style.display='';});
+    floatDot.className='admin-float-dot';
+  }
+}
+function syncStatusToggleUI(){
+  const bt=document.getElementById('breakToggle');const ct=document.getElementById('closedToggle');
+  if(bt) bt.checked=shopStatus==='break';
+  if(ct) ct.checked=shopStatus==='closed';
+}
+
+// ══════════════════════════════
+//  ADMIN SYSTEM
+// ══════════════════════════════
+document.getElementById('adminDot').addEventListener('click',()=>{document.getElementById('adminLoginOverlay').classList.add('open');});
+document.getElementById('adminFloatDot').addEventListener('click',()=>{document.getElementById('adminLoginOverlay').classList.add('open');});
+let logoClicks=0;
+document.querySelector('.logo-main').addEventListener('click',()=>{
+  logoClicks++;
+  if(logoClicks>=3){logoClicks=0;document.getElementById('adminLoginOverlay').classList.add('open');}
+  setTimeout(()=>{logoClicks=0;},1200);
+});
+
+function closeAdminLogin(){document.getElementById('adminLoginOverlay').classList.remove('open');document.getElementById('loginErr').style.display='none';}
+function doLogin(){
+  const u=document.getElementById('adminUser').value.trim();
+  const p=document.getElementById('adminPass').value;
+  if(u==='admin'&&p==='velvet@1234'){adminLoggedIn=true;closeAdminLogin();openAdminPanel();}
+  else{document.getElementById('loginErr').style.display='block';}
+}
+document.getElementById('adminPass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();});
+
+function openAdminPanel(){
+  document.getElementById('adminPanel').classList.add('open');
+  syncStatusToggleUI();
+  fbSetMenuAvail(menuAvail);
+  startAdminSync();
+}
+function logout(){
+  adminLoggedIn=false;
+  document.getElementById('adminPanel').classList.remove('open');
+  stopNotif();
+  if(adminSyncInterval){clearInterval(adminSyncInterval);adminSyncInterval=null;}
+}
+function switchTab(tab,btn){
+  currentAdminTab=tab;
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderAdminContent();
+}
+function renderAdminContent(){
+  const c=document.getElementById('adminContent');
+  if(currentAdminTab==='orders') renderOrdersTab(c);
+  else if(currentAdminTab==='menu') renderMenuTabAdmin(c);
+  else if(currentAdminTab==='completed') renderCompletedTab(c);
+}
+
+function renderOrdersTab(el){
+  const active=orders.filter(o=>o.status!=='completed'&&o.status!=='ready');
+  const recentDone=orders.filter(o=>(o.status==='completed'||o.status==='ready')&&(Date.now()-(o.ts||0))<600000);
+  const syncBanner=FB_READY
+    ?`<div style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.15);border-radius:10px;padding:8px 14px;margin-bottom:10px;font-size:12px;font-weight:600;color:#25D366;">🔴 Live · Syncing every 5s</div>`
+    :`<div style="background:rgba(232,188,90,0.08);border:1px solid rgba(232,188,90,0.2);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--amber);">⚠️ Local mode — set Firebase DB for multi-device sync.</div>`;
+  if(active.length===0&&recentDone.length===0){
+    el.innerHTML=syncBanner+`<div class="empty-state"><span class="empty-state-emoji">🧾</span><div style="font-size:15px;font-weight:600;color:var(--cream)">No active orders</div><div style="font-size:13px;margin-top:6px;color:var(--muted)">Orders will appear here</div></div>`;return;
+  }
+  const doneHTML=recentDone.length>0?`<div style="font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin:10px 2px 6px">✅ Just Completed</div>`+recentDone.map(o=>orderCardHTML(o)).join(''):'';
+  el.innerHTML=syncBanner+active.map(o=>orderCardHTML(o)).join('')+doneHTML;
+}
+
+function orderCardHTML(o){
+  const isDone=o.status==='completed'||o.status==='ready';
+  const isWorking=o.status==='working';
+  const isNew=o.status==='new';
+  const statusClass=isNew?'':isWorking?'working':isDone?'ready':'';
+  const statusBadge=isNew?'status-new':isWorking?'status-working':'status-ready';
+  const statusLabel=isNew?'New':isWorking?'Working…':isDone?'Done':o.status;
+  return `
+    <div class="order-card ${statusClass}">
+      <div class="order-card-top">
+        <div><div class="order-id">${o.id}</div><div class="order-time">${o.date} · ${o.time}</div></div>
+        <span class="order-status ${statusBadge}">${statusLabel}</span>
+      </div>
+      <div class="order-items-text">${o.items.map(i=>`${i.name} ×${i.qty}`).join(', ')}</div>
+      <div class="order-total-row"><span class="order-total-label">Total</span><span class="order-total-val">₹${o.total}</span></div>
+      ${!isDone?`
+      <div class="order-actions">
+        <button class="action-btn btn-working ${isWorking?'active':''}" onclick="markWorking('${o.id}')" ${isWorking?'disabled':''}>
+          ${isWorking?'🔵 Working…':'👨‍🍳 Working on it'}
+        </button>
+        <button class="action-btn btn-complete" onclick="completeOrder('${o.id}')">✅ Complete</button>
+      </div>`:''}
+      ${isDone?`
+      <div style="margin-top:8px">
+        <button class="action-btn" style="width:100%;background:#25D366;color:white;border-radius:10px;padding:10px;font-size:12px;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px" onclick="notifyCustomer('${o.id}')">
+          💬 Notify Customer
+        </button>
+        ${o.phone?`<div style="font-size:11px;color:#25D366;margin-top:4px;text-align:center">📱 +${o.phone}</div>`:`<div style="font-size:11px;color:var(--amber);margin-top:4px;text-align:center">📱 Tap to enter number</div>`}
+      </div>`:''}
+    </div>`;
+}
+
+function markWorking(id){
+  const o=orders.find(x=>x.id===id);if(!o)return;
+  o.status='working';saveOrders();fbPatchOrder(id,{status:'working'});
+  renderAdminContent();stopNotif();showToast('Working on '+id);
+}
+function completeOrder(id){
+  const o=orders.find(x=>x.id===id);if(!o)return;
+  o.status='completed';saveOrders();fbPatchOrder(id,{status:'completed'});
+  renderAdminContent();playChime();showToast('🎉 Order '+id+' complete!');
+}
+
+function notifyCustomer(id){
+  const o=orders.find(x=>x.id===id);if(!o)return;
+  if(o.phone){sendReadyWA(o.phone,id);}
+  else{
+    pendingNotifyId=id;
+    document.getElementById('adminPhoneEntry').value='';
+    document.getElementById('phonePromptOverlay').classList.add('open');
+    setTimeout(()=>document.getElementById('adminPhoneEntry').focus(),300);
+  }
+}
+function confirmPhonePrompt(){
+  const raw=document.getElementById('adminPhoneEntry').value.trim().replace(/\D/g,'');
+  if(raw.length!==10){showToast('Enter valid 10-digit number');return;}
+  const phone='91'+raw;
+  document.getElementById('phonePromptOverlay').classList.remove('open');
+  if(pendingNotifyId){
+    const o=orders.find(x=>x.id===pendingNotifyId);
+    if(o){o.phone=phone;saveOrders();fbPatchOrder(pendingNotifyId,{phone});}
+    sendReadyWA(phone,pendingNotifyId);
+    pendingNotifyId=null;renderAdminContent();
+  }
+}
+function cancelPhonePrompt(){document.getElementById('phonePromptOverlay').classList.remove('open');pendingNotifyId=null;}
+function sendReadyWA(phone,orderId){
+  const msg=`✅ Your order *${orderId}* is ready! 🍵\nPlease come, collect & pay.\nThank you for choosing Velvet Grounds! ☕`;
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function renderMenuTabAdmin(el){
+  el.innerHTML=MENU.map(cat=>`
+    <div class="menu-toggle-card">
+      <div class="menu-toggle-cat">${cat.emoji} ${cat.name}</div>
+      ${cat.items.map(item=>`
+        <div class="menu-toggle-item">
+          <div><div class="toggle-name">${item.name}</div><div class="toggle-price">₹${item.price}</div></div>
+          <label class="toggle-switch">
+            <input type="checkbox" ${isAvailable(item.id)?'checked':''} onchange="toggleItem('${item.id}',this.checked)">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+function toggleItem(id,available){
+  menuAvail[id]=available;saveAvail();fbSetMenuAvail(menuAvail);
+  const card=document.getElementById('card-'+id);
+  if(card){card.style.opacity=available?'1':'0.4';}
+  refreshCard(id);
+  showToast(available?'Item enabled':'Marked out of stock');
+}
+
+function renderCompletedTab(el){
+  const done=orders.filter(o=>o.status==='completed');
+  if(done.length===0){
+    el.innerHTML=`<div class="empty-state"><span class="empty-state-emoji">✅</span><div style="font-size:15px;font-weight:600;color:var(--cream)">No completed orders</div></div>`;return;
+  }
+  const today=done.filter(o=>o.date===new Date().toLocaleDateString('en-IN'));
+  const revenue=today.reduce((a,o)=>a+o.total,0);
+  el.innerHTML=`
+    <div style="background:linear-gradient(135deg,var(--amber),var(--gold));border-radius:14px;padding:16px 20px;margin-bottom:14px;color:var(--black);text-align:center">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;opacity:0.7">Today's Revenue</div>
+      <div style="font-size:32px;font-weight:900;margin-top:4px">₹${revenue}</div>
+      <div style="font-size:12px;opacity:0.7;margin-top:2px">${today.length} orders</div>
+    </div>
+    ${done.map(o=>`
+      <div class="order-card ready" style="opacity:0.7">
+        <div class="order-card-top">
+          <div><div class="order-id">${o.id}</div><div class="order-time">${o.date} · ${o.time}</div></div>
+          <span class="order-status status-ready">Done</span>
+        </div>
+        <div class="order-items-text">${o.items.map(i=>`${i.name} ×${i.qty}`).join(', ')}</div>
+        <div class="order-total-row"><span class="order-total-label">Total</span><span class="order-total-val">₹${o.total}</span></div>
+      </div>`).join('')}
+  `;
+}
+
+function triggerAdminNotif(orderId){
+  const b=document.getElementById('notifBanner');
+  b.textContent=`🔔 New Order: ${orderId} — Tap to view`;
+  b.classList.add('show');stopNotif();
+  notifInterval=setInterval(()=>playBeep(),1500);playBeep();
+  b.onclick=()=>{b.classList.remove('show');stopNotif();};
+  setTimeout(()=>b.classList.remove('show'),15000);
+}
+function stopNotif(){clearInterval(notifInterval);notifInterval=null;}
+
+function showCustomerReadyNotif(orderId){
+  playChime();
+  const b=document.getElementById('notifBanner');
+  b.style.background='linear-gradient(135deg,#25D366,#128C7E)';
+  b.textContent=`✅ Your order ${orderId} is ready! Come collect 🍵`;
+  b.classList.add('show');
+  setTimeout(()=>b.classList.remove('show'),20000);
+  b.onclick=()=>b.classList.remove('show');
+}
+
+// ══════════════════════════════
+//  POLLING
+// ══════════════════════════════
+function startCustomerPoll(){
+  if(customerPollInterval) return;
+  (async()=>{
+    const avail=await fbGetMenuAvail();if(avail) applyRemoteMenuAvail(avail);
+    const status=await fbGetShopStatus();if(status){shopStatus=status;localStorage.setItem('vg_shop_status',shopStatus);}
+    const meta=await fbGetStatusMeta();if(meta) applyStatusMeta(meta);
+    updateShopStatusOverlay();
+  })();
+  customerPollInterval=setInterval(async()=>{
+    if(adminLoggedIn) return;
+    const status=await fbGetShopStatus();
+    if(status&&status!==shopStatus){shopStatus=status;localStorage.setItem('vg_shop_status',shopStatus);const meta=await fbGetStatusMeta();if(meta)applyStatusMeta(meta);updateShopStatusOverlay();}
+    const avail=await fbGetMenuAvail();if(avail) applyRemoteMenuAvail(avail);
+    if(myOrderIds.length===0) return;
+    const fresh=await fbFetchOrders();if(!fresh) return;
+    fresh.forEach(o=>{
+      if(myOrderIds.includes(o.id)&&(o.status==='completed'||o.status==='ready')){
+        const seen=JSON.parse(localStorage.getItem('vg_notified_orders')||'[]');
+        if(!seen.includes(o.id)){seen.push(o.id);localStorage.setItem('vg_notified_orders',JSON.stringify(seen));showCustomerReadyNotif(o.id);}
+      }
+    });
+  },5000);
+}
+
+function applyRemoteMenuAvail(remoteAvail){
+  let changed=false;
+  const allIds=new Set([...Object.keys(menuAvail),...Object.keys(remoteAvail)]);
+  allIds.forEach(id=>{
+    const rv=remoteAvail[id]!==false;const lv=menuAvail[id]!==false;
+    if(rv!==lv){menuAvail[id]=remoteAvail[id];changed=true;refreshCard(id);}
+  });
+  if(changed) saveAvail();
+}
+
+async function startAdminSync(){
+  if(adminSyncInterval) clearInterval(adminSyncInterval);
+  await doAdminSync();
+  adminSyncInterval=setInterval(doAdminSync,5000);
+}
+async function doAdminSync(){
+  if(!adminLoggedIn) return;
+  try{
+    const rs=await fbGetShopStatus();
+    if(rs&&rs!==shopStatus){shopStatus=rs;localStorage.setItem('vg_shop_status',shopStatus);syncStatusToggleUI();const meta=await fbGetStatusMeta();if(meta)applyStatusMeta(meta);updateShopStatusOverlay();}
+    const ra=await fbGetMenuAvail();
+    if(ra){const allIds=new Set([...Object.keys(menuAvail),...Object.keys(ra)]);let changed=false;allIds.forEach(id=>{if(menuAvail[id]!==ra[id]){menuAvail[id]=ra[id];changed=true;}});if(changed){saveAvail();if(currentAdminTab==='menu')renderAdminContent();}}
+    const fresh=await fbFetchOrders();
+    if(fresh===null){orders=JSON.parse(localStorage.getItem('vg_orders')||'[]');renderAdminContent();return;}
+    const newOnes=fresh.filter(o=>!seenOrderIds.has(o.id)&&o.status==='new');
+    fresh.forEach(o=>seenOrderIds.add(o.id));
+    orders=fresh;
+    if(newOnes.length>0) triggerAdminNotif(newOnes[0].id);
+    renderAdminContent();
+  }catch(e){orders=JSON.parse(localStorage.getItem('vg_orders')||'[]');renderAdminContent();}
+}
+
+window.addEventListener('storage',e=>{
+  if(e.key==='vg_orders'&&adminLoggedIn&&!FB_READY){
+    const no=JSON.parse(e.newValue||'[]');
+    const oldIds=new Set(orders.map(o=>o.id));
+    const newOnes=no.filter(o=>!oldIds.has(o.id));
+    orders=no;if(newOnes.length>0) triggerAdminNotif(newOnes[0].id);
+    renderAdminContent();
+  }
+});
+
+// ══════════════════════════════
+//  INIT
+// ══════════════════════════════
+renderMenu();
+updateCartUI();
+renderReviews();
+updateShopStatusOverlay();
+startCustomerPoll();
+</script>
+</body>
+</html>
